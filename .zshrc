@@ -88,3 +88,17 @@ alias mvim="vim"
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+function nvm-upgrade() {
+  if [[ condition ]]; then
+    #statements
+  fi
+  current=`nvm current`
+  next=$1
+  echo "upgrading node version from $current to $next..."
+  nvm install $next --reinstall-packages-from=$current
+  nvm alias default $next
+  nvm use $next
+  nvm install-latest-npm
+  nvm uninstall $current
+}
