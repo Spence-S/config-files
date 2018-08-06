@@ -10,7 +10,7 @@ export ZSH=/Users/Spencer/.oh-my-zsh
 ZSH_THEME="simple"
 
 # Uncomment the following line to use case-sensitive completion.
- CASE_SENSITIVE="true"
+CASE_SENSITIVE="true"
 
 # Uncomment the following line to use hyphen-insensitive completion. Case
 # sensitive completion must be off. _ and - will be interchangeable.
@@ -51,7 +51,17 @@ ZSH_THEME="simple"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git node npm compleat)
+plugins=(
+  git 
+  nvm 
+  node 
+  npm 
+  sudo 
+  yarn 
+  ## custom plugins - not in oh-my-zsh
+  zsh-autosuggestions 
+  zsh-syntax-highlighting
+)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -85,10 +95,11 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias mvim="vim"
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
+# nvm-upgrade {version}
+# Uses nvm to install new node version
+# reinstall globals 
+# remove old version 
+# now with nice messages
 function nvm-upgrade() {
   if [[ condition ]]; then
     #statements
@@ -96,9 +107,15 @@ function nvm-upgrade() {
   current=`nvm current`
   next=$1
   echo "upgrading node version from $current to $next..."
+  echo "installing $next and reinstalling global packages"
   nvm install $next --reinstall-packages-from=$current
+  echo "Setting $next as default node version"
   nvm alias default $next
+  echo "Now using $next"
   nvm use $next
+  echo "Updating npm"
   nvm install-latest-npm
+  echo "removing version $current - this may take a minute..."
   nvm uninstall $current
+  echo "Successfully upgraded node version to $next!!!"
 }
