@@ -1,6 +1,6 @@
 
 
-# Spencers Config Files
+# Spencer's Dotfiles
 
 These are just some of my config files that I wanted to get checked into vc.
 
