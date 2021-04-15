@@ -36,11 +36,16 @@ syntax enable
 colorscheme dracula
 
 " ALE
-let b:ale_fixers = {'javascript': ['xo'], "json": ['prettier']}
+let b:ale_fixers = {'javascript': ['xo'], 'json': ['prettier']}
 let b:ale_linters = {'javascript': ['xo']}
 let g:ale_sign_column_always = 1
 let g:ale_linters_explicit = 1
 let g:ale_fix_on_save = 1
+let g:ale_cache_executable_check_failures = 1
+let g:ale_lint_on_text_changed = 1
+let g:ale_lint_delay = 75
+let g:ale_sign_error = '>>'
+let g:ale_sign_warning = '--'
 
 "NERDTREE CONFIG
 let g:NERDTreeShowHidden = 1
@@ -59,11 +64,10 @@ let g:DevIconsEnableFoldersOpenClose = 1
 
 "Airline settings
 let g:airline#extensions#tabline#enabled = 1 "enable the plugin
-set laststatus=2 "Always show airline bar
 let g:airline_powerline_fonts = 1
 let g:airline_theme='dracula'
-" Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
+set laststatus=2 "Always show airline bar
 
 "CUSTOM OPTIONS 
 """""""""""""""""""""""""""
@@ -87,9 +91,15 @@ let &t_EI = "\<Esc>]50;CursorShape=0\x7"
 
 "CUSTOM MAPPINGS
 let mapleader=','
-"tab selections like a normal editor
+
+"tab selections like a normal editor and 2 spaces for everything
+set expandtab
+set tabstop=2
+set softtabstop=2
+set shiftwidth=2
 vnoremap <Tab> >gv
 vnoremap <S-Tab> <gv
+
 "remap arrow keys to change panes 
 noremap <left> <esc>:brewind<cr>
 noremap <right> <esc>:bnext<cr>

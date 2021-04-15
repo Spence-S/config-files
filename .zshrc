@@ -5,15 +5,14 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# skip security lol
-export ZSH_DISABLE_COMPFIX="true"
-
 # Path to your oh-my-zsh installation.
 # Path additions
+export ZSH_DISABLE_COMPFIX="true"
 export ZSH="/Users/spencer/.oh-my-zsh"
 export PATH=/usr/local/opt/mongodb-community@3.4/bin:/usr/local/sbin:$PATH
 export PATH=~/.npm-global/bin:$PATH
 export PATH=/usr/local/opt/python/libexec/bin:$PATH
+export BAT_THEME=Dracula
 
 # theme
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -41,12 +40,21 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ls="exa -T -L=1 -I=node_modules -la --icons"
 alias tree="tree -I 'node_modules'"
-
-#bat
-export BAT_THEME=Dracula
+alias fixkraken="codesign --remove-signature /Applications/GitKraken.app/Contents/Frameworks/GitKraken\ Helper\ \(Renderer\).app"
+alias oh="cd ~/Projects/ourharvest"
+alias ourharvest=oh
 alias cat=bat
-
 alias vim=nvim
+
+# iterm tab title
+# https://gist.github.com/phette23/5270658#gistcomment-3530342
+if [ $ITERM_SESSION_ID ]; then
+  DISABLE_AUTO_TITLE="true"
+  precmd() {
+    # sets the tab title to current dir
+    echo -ne "\e]1;${PWD##*/}\a"
+  }
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
